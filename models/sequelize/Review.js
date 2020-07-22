@@ -11,6 +11,10 @@ const Review = sequelize.define("review", {
     text: {
         type: Sequelize.TEXT,
         allowNull: false
+    },
+    agentId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
     }
     //customerId -> user_id
     //clientId -> user_id

@@ -9,15 +9,12 @@ const Role = require("./Role");
 const Review = require("./Review");
 const Status = require("./Status");
 const Tier = require("./Tier");
+const Job = require("./Job");
 
 //RELATIONSHIPS BETWEEN TABLES
 //user - profile
 User.hasOne(Profile);
 Profile.belongsTo(User);
-
-//user - role
-User.hasOne(Role);
-Role.belongsTo(User);
 
 //user - address
 User.hasOne(Address);
@@ -31,14 +28,9 @@ Review.belongsTo(User);
 User.hasMany(Service);
 Service.belongsTo(User);
 
-//User - tier
-Tier.hasMany(User);
-User.belongsTo(Tier);
-
 //user - bid
 User.hasOne(Bid);
 Bid.belongsTo(User);
-
 
 //service - category
 Category.hasMany(Service);
@@ -48,10 +40,31 @@ Service.belongsTo(Category);
 Service.hasMany(Bid);
 Bid.belongsTo(Service);
 
-
 //Service - status
-Service.hasOne(Status);
-Status.belongsTo(Service);
+Service.belongsTo(Status);
 
-//Sync everything to the database
+//profile - tier
+Profile.belongsTo(Tier);
+Tier.hasMany(Profile);
+
+//profile - role
+Profile.belongsTo(Role);
+Role.hasMany(Profile);
+
+//job - user
+Job.belongsTo(User, { as: "client" });
+Job.belongsTo(User, { as: "agent" });
+
+//job - bid
+Job.belongsTo(Bid);
+Bid.hasMany(Job);
+
+//job - service
+Job.belongsTo(Service);
+Service.hasMany(Job);
+
+//job - status
+Job.belongsTo(Status);
+
+//SYNC EVERYTHING TO THE DATABASE with force tag to drop and recreate every existing table
 sequelize.sync({ force: true });

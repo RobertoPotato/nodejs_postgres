@@ -20,6 +20,14 @@ const Service = sequelize.define("service", {
         type: Sequelize.STRING,
         allowNull: false
     },
+    county: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    town: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     //FOREIGN KEYS NEEDED
     //categoryId
     //userId
